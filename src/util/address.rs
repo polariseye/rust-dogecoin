@@ -711,7 +711,7 @@ impl Address {
             (a, b) if a == b => true,
             (Network::Livenet, _) | (_, Network::Livenet) => false,
             (Network::Regtest, _) | (_, Network::Regtest) if !is_legacy => false,
-            (Network::Testnet, _) | (Network::Regtest, _) | (Network::Signet, _) => true
+            (Network::Testnet, _) | (Network::Regtest, _) => true
         }
     }
 
@@ -753,15 +753,15 @@ impl fmt::Display for Address {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
         let p2pkh_prefix = match self.network {
             Network::Livenet => PUBKEY_ADDRESS_PREFIX_MAIN,
-            Network::Testnet | Network::Signet | Network::Regtest => PUBKEY_ADDRESS_PREFIX_TEST,
+            Network::Testnet | Network::Regtest => PUBKEY_ADDRESS_PREFIX_TEST,
         };
         let p2sh_prefix = match self.network {
             Network::Livenet => SCRIPT_ADDRESS_PREFIX_MAIN,
-            Network::Testnet | Network::Signet | Network::Regtest => SCRIPT_ADDRESS_PREFIX_TEST,
+            Network::Testnet |  Network::Regtest => SCRIPT_ADDRESS_PREFIX_TEST,
         };
         let bech32_hrp = match self.network {
             Network::Livenet => "bc",
-            Network::Testnet | Network::Signet => "tb",
+            Network::Testnet => "tb",
             Network::Regtest => "bcrt",
         };
         let encoding = AddressEncoding {

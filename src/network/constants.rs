@@ -67,8 +67,6 @@ user_enum! {
         Livenet <-> "livenet",
         /// Bitcoin's testnet
         Testnet <-> "testnet",
-        /// Bitcoin's signet
-        Signet <-> "signet",
         /// Bitcoin's regtest
         Regtest <-> "regtest"
     }
@@ -88,10 +86,9 @@ impl Network {
     pub fn from_magic(magic: u32) -> Option<Network> {
         // Note: any new entries here must be added to `magic` below
         match magic {
-            0xD9B4BEF9 => Some(Network::Livenet),
-            0x0709110B => Some(Network::Testnet),
-            0x40CF030A => Some(Network::Signet),
-            0xDAB5BFFA => Some(Network::Regtest),
+            0xc0c0c0c0 => Some(Network::Livenet),
+            0xfcc1b7dc => Some(Network::Testnet),
+            0xfabfb5da => Some(Network::Regtest),
             _ => None
         }
     }
@@ -110,10 +107,9 @@ impl Network {
     pub fn magic(self) -> u32 {
         // Note: any new entries here must be added to `from_magic` above
         match self {
-            Network::Bitcoin => 0xD9B4BEF9,
-            Network::Testnet => 0x0709110B,
-            Network::Signet  => 0x40CF030A,
-            Network::Regtest => 0xDAB5BFFA,
+            Network::Livenet => 0xc0c0c0c0,
+            Network::Testnet => 0xfcc1b7dc,
+            Network::Regtest => 0xfabfb5da,
         }
     }
 }
